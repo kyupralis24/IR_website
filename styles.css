@@ -1,0 +1,616 @@
+:root {
+    --primary-color: #ff00ff;
+    --secondary-color: #00ffff;
+    --background-color: #000000;
+    --text-color: #ffffff;
+    --accent-color: #ff00ff;
+    --border-color: #00ffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Press Start 2P', cursive;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    background-image:
+        linear-gradient(45deg, rgba(255, 0, 255, 0.1) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(255, 0, 255, 0.1) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(255, 0, 255, 0.1) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(255, 0, 255, 0.1) 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    position: relative;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+}
+
+header {
+    text-align: center;
+    padding: 100px 0;
+    border-bottom: 4px solid var(--primary-color);
+    margin-bottom: 50px;
+    position: relative;
+    overflow: hidden;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 45%, var(--primary-color) 45%, var(--primary-color) 55%, transparent 55%);
+    background-size: 20px 20px;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+h1 {
+    font-size: 3rem;
+    color: var(--primary-color);
+    text-shadow: 4px 4px 0 var(--secondary-color),
+        8px 8px 0 rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--secondary-color);
+    transform: skew(-45deg);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    text-shadow: 2px 2px 0 var(--primary-color);
+    margin-top: 20px;
+}
+
+section {
+    margin: 150px 0;
+    padding: 40px;
+    border: 4px solid var(--primary-color);
+    position: relative;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+section::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 4px solid var(--secondary-color);
+    z-index: -1;
+    transform: translateZ(-10px);
+}
+
+.content {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+}
+
+h2 {
+    color: var(--primary-color);
+    margin-bottom: 40px;
+    text-align: center;
+    font-size: 1.8rem;
+    text-shadow: 3px 3px 0 var(--secondary-color);
+}
+
+h3 {
+    color: var(--secondary-color);
+    margin: 30px 0;
+    font-size: 1.2rem;
+    text-shadow: 2px 2px 0 var(--primary-color);
+}
+
+.finding {
+    margin: 50px 0;
+    padding: 30px;
+    border: 2px solid var(--primary-color);
+    background: rgba(0, 0, 0, 0.7);
+    position: relative;
+    overflow: hidden;
+}
+
+.finding::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 45%, var(--primary-color) 45%, var(--primary-color) 55%, transparent 55%);
+    background-size: 10px 10px;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+p {
+    margin: 30px 0;
+    font-size: 1rem;
+    line-height: 1.8;
+    text-shadow: 1px 1px 0 var(--primary-color);
+}
+
+footer {
+    text-align: center;
+    padding: 80px 0;
+    border-top: 4px solid var(--primary-color);
+    font-size: 0.9rem;
+    position: relative;
+    background: rgba(0, 0, 0, 0.9);
+}
+
+/* 8-bit animations */
+@keyframes pixelate {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    25% {
+        transform: scale(1.02) rotate(0.5deg);
+    }
+
+    50% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    75% {
+        transform: scale(0.98) rotate(-0.5deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes glitch {
+    0% {
+        transform: translate(0);
+    }
+
+    20% {
+        transform: translate(-2px, 2px);
+    }
+
+    40% {
+        transform: translate(-2px, -2px);
+    }
+
+    60% {
+        transform: translate(2px, 2px);
+    }
+
+    80% {
+        transform: translate(2px, -2px);
+    }
+
+    100% {
+        transform: translate(0);
+    }
+}
+
+section:hover {
+    animation: pixelate 0.5s ease-in-out;
+    transform: translateY(-5px) rotate(1deg);
+    box-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
+}
+
+h1:hover {
+    animation: glitch 0.3s ease-in-out;
+}
+
+/* Cursor styles */
+.cursor {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary-color);
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease;
+}
+
+.click-effect {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--secondary-color);
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%) scale(0);
+    animation: click-animation 0.5s ease-out;
+}
+
+@keyframes click-animation {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(3);
+        opacity: 0;
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+    }
+
+    p {
+        font-size: 0.8rem;
+    }
+
+    section {
+        padding: 20px;
+        margin: 100px 0;
+    }
+}
+
+/* Add these styles to the existing CSS file */
+
+.cursor-trail {
+    width: 10px;
+    height: 10px;
+    border: 2px solid var(--secondary-color);
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
+}
+
+.particle {
+    width: 4px;
+    height: 4px;
+    background-color: var(--primary-color);
+    position: fixed;
+    pointer-events: none;
+    z-index: 9997;
+    animation: particle-animation 1s ease-out forwards;
+}
+
+@keyframes particle-animation {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(var(--x), var(--y)) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Add glitch effect to headings */
+.glitch {
+    animation: glitch 0.3s linear;
+}
+
+@keyframes glitch {
+    0% {
+        text-shadow: 2px 0 var(--primary-color), -2px 0 var(--secondary-color);
+        transform: translate(0);
+    }
+
+    20% {
+        text-shadow: 2px 0 var(--primary-color), -2px 0 var(--secondary-color);
+        transform: translate(-2px, 2px);
+    }
+
+    40% {
+        text-shadow: 2px 0 var(--primary-color), -2px 0 var(--secondary-color);
+        transform: translate(2px, -2px);
+    }
+
+    60% {
+        text-shadow: -2px 0 var(--primary-color), 2px 0 var(--secondary-color);
+        transform: translate(-2px, 2px);
+    }
+
+    80% {
+        text-shadow: -2px 0 var(--primary-color), 2px 0 var(--secondary-color);
+        transform: translate(2px, -2px);
+    }
+
+    100% {
+        text-shadow: 2px 0 var(--primary-color), -2px 0 var(--secondary-color);
+        transform: translate(0);
+    }
+}
+
+/* Add loading animation */
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.loading::after {
+    content: '';
+    width: 50px;
+    height: 50px;
+    border: 5px solid var(--primary-color);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: loading 1s linear infinite;
+}
+
+@keyframes loading {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Add these styles to the existing CSS file */
+
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.background-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    opacity: 0.3;
+    transition: opacity 0.5s ease;
+}
+
+#bg1 {
+    background-image: url('public/images/backgrounds/bg1.jpg');
+    z-index: 1;
+}
+
+#bg2 {
+    background-image: url('public/images/backgrounds/bg2.jpg');
+    z-index: 2;
+    transform: translateY(100%);
+}
+
+#bg3 {
+    background-image: url('public/images/backgrounds/bg3.jpg');
+    z-index: 3;
+    transform: translateY(200%);
+}
+
+#bg4 {
+    background-image: url('public/images/backgrounds/bg4.jpg');
+    z-index: 4;
+    transform: translateY(300%);
+}
+
+/* Add parallax effect to background sections */
+.background-section.active {
+    opacity: 0.7;
+    transform: translateY(0);
+    transition: transform 1s ease, opacity 1s ease;
+}
+
+/* Add scroll indicator */
+.scroll-indicator {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    color: var(--primary-color);
+    text-shadow: 2px 2px 0 var(--secondary-color);
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0) translateX(-50%);
+    }
+
+    40% {
+        transform: translateY(-20px) translateX(-50%);
+    }
+
+    60% {
+        transform: translateY(-10px) translateX(-50%);
+    }
+}
+
+/* Add these styles to the existing CSS file */
+
+.text-box {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid var(--primary-color);
+    padding: 30px;
+    margin: 20px 0;
+    position: relative;
+    backdrop-filter: blur(5px);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.text-box::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 2px solid var(--secondary-color);
+    z-index: -1;
+    transform: translateZ(-10px);
+}
+
+.text-box.highlight {
+    background: rgba(255, 0, 255, 0.1);
+    border-color: var(--secondary-color);
+    transform: translateX(20px);
+}
+
+.text-box.highlight::before {
+    border-color: var(--primary-color);
+    transform: translateZ(-20px);
+}
+
+.findings-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.finding {
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--primary-color);
+    padding: 25px;
+    position: relative;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.finding::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 2px solid var(--secondary-color);
+    z-index: -1;
+    transform: translateZ(-10px);
+}
+
+.finding:nth-child(odd) {
+    transform: rotate(-1deg);
+}
+
+.finding:nth-child(even) {
+    transform: rotate(1deg);
+}
+
+.finding:hover {
+    transform: scale(1.02) rotate(0deg);
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+}
+
+/* Add animation for text boxes */
+@keyframes text-box-enter {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) rotate(5deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+.text-box {
+    animation: text-box-enter 0.8s ease-out forwards;
+}
+
+/* Add responsive design for findings grid */
+@media (max-width: 768px) {
+    .findings-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .text-box.highlight {
+        transform: translateX(0);
+    }
+
+    .finding {
+        transform: rotate(0deg) !important;
+    }
+}
+
+/* Add hover effects for text boxes */
+.text-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+}
+
+.text-box.highlight:hover {
+    transform: translateX(20px) translateY(-5px);
+}
+
+/* Add content transitions */
+.content {
+    transition: transform 0.3s ease;
+}
+
+.content:hover {
+    transform: scale(1.01);
+}
+
+/* Add section transitions */
+section {
+    transition: all 0.5s ease;
+}
+
+section:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
+}
