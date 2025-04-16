@@ -18,14 +18,12 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     line-height: 1.6;
-    background-image:
-        linear-gradient(45deg, rgba(255, 0, 255, 0.1) 25%, transparent 25%),
-        linear-gradient(-45deg, rgba(255, 0, 255, 0.1) 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, rgba(255, 0, 255, 0.1) 75%),
-        linear-gradient(-45deg, transparent 75%, rgba(255, 0, 255, 0.1) 75%);
-    background-size: 20px 20px;
-    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    background-image: url('public/images/backgrounds/bg_main.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     position: relative;
+    cursor: none;
 }
 
 .container {
@@ -34,7 +32,7 @@ body {
     padding: 20px;
     position: relative;
     z-index: 10;
-    background: rgba(0, 0, 0, 0.7);
+    background: transparent;
     backdrop-filter: blur(5px);
 }
 
@@ -97,23 +95,35 @@ section {
     padding: 40px;
     border: 4px solid var(--primary-color);
     position: relative;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(10px);
     box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
     transform-style: preserve-3d;
     perspective: 1000px;
+    transition: all 0.5s ease;
+    overflow: hidden;
 }
 
 section::before {
+    display: none;
+}
+
+section::after {
     content: '';
     position: absolute;
-    top: -4px;
-    left: -4px;
-    right: -4px;
-    bottom: -4px;
-    border: 4px solid var(--secondary-color);
-    z-index: -1;
-    transform: translateZ(-10px);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 45%, var(--primary-color) 45%, var(--primary-color) 55%, transparent 55%);
+    background-size: 20px 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+section:hover::after {
+    opacity: 0.05;
 }
 
 .content {
@@ -147,16 +157,7 @@ h3 {
 }
 
 .finding::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, transparent 45%, var(--primary-color) 45%, var(--primary-color) 55%, transparent 55%);
-    background-size: 10px 10px;
-    opacity: 0.1;
-    z-index: -1;
+    display: none;
 }
 
 p {
@@ -393,57 +394,13 @@ h1:hover {
 
 /* Add these styles to the existing CSS file */
 
-.background-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    overflow: hidden;
-}
-
-.background-section {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    opacity: 0.3;
-    transition: opacity 0.5s ease;
-}
-
-#bg1 {
-    background-image: url('public/images/backgrounds/bg1.jpg');
-    z-index: 1;
-}
-
-#bg2 {
-    background-image: url('public/images/backgrounds/bg2.jpg');
-    z-index: 2;
-    transform: translateY(100%);
-}
-
-#bg3 {
-    background-image: url('public/images/backgrounds/bg3.jpg');
-    z-index: 3;
-    transform: translateY(200%);
-}
-
+.background-container,
+.background-section,
+#bg1,
+#bg2,
+#bg3,
 #bg4 {
-    background-image: url('public/images/backgrounds/bg4.jpg');
-    z-index: 4;
-    transform: translateY(300%);
-}
-
-/* Add parallax effect to background sections */
-.background-section.active {
-    opacity: 0.7;
-    transform: translateY(0);
-    transition: transform 1s ease, opacity 1s ease;
+    display: none;
 }
 
 /* Add scroll indicator */
@@ -488,18 +445,19 @@ h1:hover {
     backdrop-filter: blur(5px);
     transform-style: preserve-3d;
     perspective: 1000px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    transform-origin: center;
 }
 
-.text-box::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
+.text-box.small {
     border: 2px solid var(--secondary-color);
-    z-index: -1;
-    transform: translateZ(-10px);
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+.text-box.visible {
+    opacity: 1;
 }
 
 .text-box.highlight {
@@ -508,9 +466,17 @@ h1:hover {
     transform: translateX(20px);
 }
 
-.text-box.highlight::before {
-    border-color: var(--primary-color);
-    transform: translateZ(-20px);
+.image-box {
+    margin: 20px 0;
+    border: 2px solid var(--primary-color);
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.image-box.visible {
+    opacity: 1;
 }
 
 .findings-grid {
@@ -527,18 +493,6 @@ h1:hover {
     position: relative;
     transform-style: preserve-3d;
     perspective: 1000px;
-}
-
-.finding::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    border: 2px solid var(--secondary-color);
-    z-index: -1;
-    transform: translateZ(-10px);
 }
 
 .finding:nth-child(odd) {
@@ -588,12 +542,42 @@ h1:hover {
 
 /* Add hover effects for text boxes */
 .text-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+    transform: scale(1.02) rotate(0.5deg);
+    box-shadow: 0 0 30px rgba(255, 0, 255, 0.4);
+    border-color: var(--secondary-color);
 }
 
-.text-box.highlight:hover {
-    transform: translateX(20px) translateY(-5px);
+/* Glowing effect for borders */
+.text-box::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 2px solid var(--secondary-color);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.text-box:hover::after {
+    opacity: 1;
+    animation: border-glow 2s infinite;
+}
+
+@keyframes border-glow {
+    0% {
+        box-shadow: 0 0 5px var(--secondary-color);
+    }
+
+    50% {
+        box-shadow: 0 0 20px var(--secondary-color);
+    }
+
+    100% {
+        box-shadow: 0 0 5px var(--secondary-color);
+    }
 }
 
 /* Add content transitions */
@@ -613,4 +597,787 @@ section {
 section:hover {
     transform: translateY(-10px);
     box-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
+}
+
+/* Add map container styles */
+.map-container {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    padding: 20px;
+}
+
+.map-text {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.map-image {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+}
+
+.map-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.map-image::before {
+    display: none;
+}
+
+.map-image:hover .map-img {
+    transform: scale(1.05);
+}
+
+/* Update responsive design for map container */
+@media (max-width: 768px) {
+    .map-container {
+        flex-direction: column;
+    }
+
+    .map-text {
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .map-image {
+        width: 100%;
+    }
+}
+
+/* Update background section transitions */
+.background-section.active {
+    opacity: 0.7;
+    transform: translateY(0) scale(1.1);
+    transition: transform 1s ease, opacity 1s ease;
+}
+
+/* Add parallax effect to background */
+.background-section {
+    transform: translateY(var(--scroll-y)) scale(1);
+    will-change: transform;
+}
+
+.text-box.scroll-box {
+    animation: scroll-in 1s ease-out forwards, subtle-float 4s ease-in-out infinite;
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.quote-box {
+    background: rgba(255, 0, 255, 0.1);
+    border: 2px solid var(--secondary-color);
+    padding: 20px;
+    margin: 20px 0;
+    font-style: italic;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.quote-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 45%, var(--secondary-color) 45%, var(--secondary-color) 55%, transparent 55%);
+    background-size: 20px 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.quote-box:hover::before {
+    opacity: 0.1;
+}
+
+.quote-box.visible {
+    opacity: 1;
+}
+
+.quote-box.wide {
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.quote-author {
+    text-align: right;
+    font-style: normal;
+    margin-top: 10px;
+    color: var(--secondary-color);
+}
+
+.capacity-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 40px 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.capacity-grid .text-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.capacity-grid .text-box p {
+    margin-bottom: 0;
+}
+
+.capacity-icon {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.capacity-grid h3 {
+    margin: 10px 0;
+    flex-shrink: 0;
+}
+
+.capacity-icon:hover {
+    transform: scale(1.2) rotate(10deg);
+    text-shadow: 0 0 10px var(--secondary-color);
+}
+
+@keyframes scroll-in {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.author {
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+    margin-top: 10px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .capacity-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .text-box.small {
+        max-width: 100%;
+    }
+}
+
+/* Remove the double border effect */
+.text-box::before,
+.finding::before,
+.map-image::before {
+    display: none;
+}
+
+/* Add scroll fade effect */
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.text-box.fade-out {
+    animation: fade-out 0.5s ease forwards;
+}
+
+.quote-box.fade-out {
+    animation: fade-out 0.5s ease forwards;
+}
+
+.image-box.fade-out {
+    animation: fade-out 0.5s ease forwards;
+}
+
+/* Map overlay styles */
+.map-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.location-marker {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.marker-dot {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: var(--secondary-color);
+    border-radius: 50%;
+    animation: pulse 2s infinite, rotate 4s linear infinite;
+}
+
+.marker-label {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    padding: 5px 10px;
+    border: 2px solid var(--secondary-color);
+    font-size: 0.8rem;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Data visualization styles */
+.data-visualization {
+    display: flex;
+    justify-content: space-around;
+    margin: 40px 0;
+    gap: 20px;
+}
+
+.data-point {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    animation: float 6s ease-in-out infinite;
+}
+
+.data-point:hover {
+    transform: translateY(-5px);
+}
+
+.data-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.data-icon:hover {
+    transform: scale(1.2) rotate(10deg);
+    text-shadow: 0 0 10px var(--secondary-color);
+}
+
+.data-text {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+/* Argument flow styles */
+.argument-visual {
+    margin: 30px 0;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid var(--secondary-color);
+}
+
+.argument-flow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flow-step {
+    text-align: center;
+    flex: 1;
+    transition: all 0.3s ease;
+}
+
+.flow-step:hover {
+    transform: scale(1.1);
+    text-shadow: 0 0 10px var(--secondary-color);
+}
+
+.step-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.flow-arrow {
+    font-size: 2rem;
+    color: var(--secondary-color);
+    margin: 0 20px;
+    animation: arrow-pulse 2s infinite;
+}
+
+@keyframes arrow-pulse {
+    0% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.5;
+    }
+}
+
+/* Timeline styles */
+.timeline {
+    position: relative;
+    margin: 40px 0;
+    padding: 20px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background: var(--secondary-color);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+    width: 50%;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid var(--primary-color);
+}
+
+.timeline-item:nth-child(odd) {
+    margin-left: 50%;
+}
+
+.timeline-date {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+}
+
+/* Impact grid styles */
+.impact-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.impact-item {
+    text-align: center;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.impact-item:hover {
+    transform: translateY(-5px);
+}
+
+.impact-icon {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.impact-icon:hover {
+    transform: scale(1.2) rotate(10deg);
+    text-shadow: 0 0 10px var(--secondary-color);
+}
+
+/* Quote icon styles */
+.quote-icon {
+    font-size: 4rem;
+    color: var(--secondary-color);
+    opacity: 0.3;
+    position: absolute;
+    top: -20px;
+    left: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .data-visualization {
+        flex-direction: column;
+    }
+
+    .argument-flow {
+        flex-direction: column;
+    }
+
+    .flow-arrow {
+        transform: rotate(90deg);
+        margin: 20px 0;
+    }
+
+    .timeline::before {
+        left: 20px;
+    }
+
+    .timeline-item {
+        width: calc(100% - 40px);
+        margin-left: 40px;
+    }
+
+    .timeline-item:nth-child(odd) {
+        margin-left: 40px;
+    }
+
+    .impact-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Floating animation for data points */
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* Enhanced background effects */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+body:hover::before {
+    opacity: 1;
+}
+
+/* Interactive cursor effects */
+.custom-cursor {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--secondary-color);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease;
+    mix-blend-mode: difference;
+}
+
+.custom-cursor::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Matrix rain effect for background */
+.matrix-rain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.1;
+}
+
+/* Glitch text effect */
+.glitch-text {
+    position: relative;
+    animation: glitch-text 2s infinite;
+}
+
+@keyframes glitch-text {
+    0% {
+        text-shadow: 2px 0 var(--primary-color), -2px 0 var(--secondary-color);
+        transform: translate(0);
+    }
+
+    20% {
+        text-shadow: 2px 0 var(--primary-color), -2px 0 var(--secondary-color);
+        transform: translate(-2px, 2px);
+    }
+
+    40% {
+        text-shadow: -2px 0 var(--primary-color), 2px 0 var(--secondary-color);
+        transform: translate(2px, -2px);
+    }
+
+    60% {
+        text-shadow: -2px 0 var(--primary-color), 2px 0 var(--secondary-color);
+        transform: translate(-2px, 2px);
+    }
+
+    80% {
+        text-shadow: 2px 0 var(--primary-color), -2px 0 var(--secondary-color);
+        transform: translate(2px, -2px);
+    }
+
+    100% {
+        text-shadow: 2px 0 var(--primary-color), -2px 0 var(--secondary-color);
+        transform: translate(0);
+    }
+}
+
+/* Holographic effect */
+.holographic {
+    position: relative;
+    overflow: hidden;
+}
+
+.holographic::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg,
+            transparent 45%,
+            var(--primary-color) 45%,
+            var(--primary-color) 55%,
+            transparent 55%);
+    background-size: 20px 20px;
+    animation: holographic-scan 4s linear infinite;
+    opacity: 0.1;
+}
+
+@keyframes holographic-scan {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(20px);
+    }
+}
+
+/* Digital noise effect */
+.digital-noise {
+    position: relative;
+}
+
+.digital-noise::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.05;
+    pointer-events: none;
+}
+
+/* Cyberpunk scan lines */
+.scan-lines {
+    position: relative;
+    overflow: hidden;
+}
+
+.scan-lines::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(to bottom,
+            transparent 0%,
+            rgba(255, 0, 255, 0.05) 0.5%,
+            transparent 1%);
+    animation: scan-lines 8s linear infinite;
+}
+
+@keyframes scan-lines {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+/* Neon pulse effect */
+.neon-pulse {
+    animation: neon-pulse 2s infinite;
+}
+
+@keyframes neon-pulse {
+    0% {
+        text-shadow: 0 0 5px var(--primary-color),
+            0 0 10px var(--primary-color),
+            0 0 20px var(--primary-color);
+    }
+
+    50% {
+        text-shadow: 0 0 10px var(--primary-color),
+            0 0 20px var(--primary-color),
+            0 0 30px var(--primary-color);
+    }
+
+    100% {
+        text-shadow: 0 0 5px var(--primary-color),
+            0 0 10px var(--primary-color),
+            0 0 20px var(--primary-color);
+    }
+}
+
+/* Digital distortion effect */
+.distortion {
+    position: relative;
+}
+
+.distortion::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 0, 255, 0.1) 50%,
+            transparent 100%);
+    animation: distortion-wave 3s infinite;
+}
+
+@keyframes distortion-wave {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Add these classes to existing elements */
+.text-box {
+    position: relative;
+}
+
+.text-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg,
+            transparent 45%,
+            var(--primary-color) 45%,
+            var(--primary-color) 55%,
+            transparent 55%);
+    background-size: 20px 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.text-box:hover::before {
+    opacity: 0.1;
+    animation: holographic-scan 4s linear infinite;
+}
+
+/* Add digital noise to sections */
+section {
+    position: relative;
+}
+
+section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+}
+
+/* Add scan lines to the background */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(to bottom,
+            transparent 0%,
+            rgba(255, 0, 255, 0.03) 0.5%,
+            transparent 1%);
+    animation: scan-lines 8s linear infinite;
+    pointer-events: none;
+    z-index: 1;
 }
