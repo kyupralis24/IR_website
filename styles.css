@@ -17,9 +17,9 @@
 }
 
 body {
-    font-family: var(--body-font);
-    background-color: var(--background-color);
-    color: var(--text-color);
+    font-family: 'EB Garamond', serif;
+    background-color: #0a0a0a;
+    color: #e0e0e0;
     line-height: 1.6;
     background-image: url('public/images/backgrounds/bg_main.jpg');
     background-size: cover;
@@ -27,6 +27,7 @@ body {
     background-attachment: fixed;
     position: relative;
     cursor: none;
+    font-size: 18px;
 }
 
 .container {
@@ -66,11 +67,11 @@ header::before {
 }
 
 h1 {
-    font-size: 3rem;
+    font-size: 36px;
     color: var(--primary-color);
     text-shadow: 4px 4px 0 var(--secondary-color),
         8px 8px 0 rgba(0, 0, 0, 0.5);
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     position: relative;
     display: inline-block;
     font-family: var(--heading-font);
@@ -88,7 +89,7 @@ h1::after {
 }
 
 .subtitle {
-    font-size: 1.2rem;
+    font-size: 20px;
     color: var(--secondary-color);
     text-shadow: 2px 2px 0 var(--primary-color);
     margin-top: 20px;
@@ -444,9 +445,9 @@ h1:hover {
 /* Add these styles to the existing CSS file */
 
 .text-box {
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.7);
     border: 2px solid var(--primary-color);
-    padding: 30px;
+    padding: 20px;
     margin: 20px 0;
     position: relative;
     backdrop-filter: blur(5px);
@@ -455,12 +456,14 @@ h1:hover {
     opacity: 0;
     transition: all 0.3s ease;
     transform-origin: center;
+    font-size: 18px;
 }
 
 .text-box.small {
     border: 2px solid var(--secondary-color);
     max-width: 400px;
     margin: 20px auto;
+    font-size: 16px;
 }
 
 .text-box.visible {
@@ -677,7 +680,7 @@ section:hover {
 }
 
 .quote-box {
-    background: rgba(255, 0, 255, 0.1);
+    background: rgba(0, 0, 0, 0.7);
     border: 2px solid var(--secondary-color);
     padding: 20px;
     margin: 20px 0;
@@ -686,6 +689,7 @@ section:hover {
     transition: opacity 0.5s ease;
     position: relative;
     overflow: hidden;
+    font-size: 18px;
 }
 
 .quote-box::before {
@@ -718,8 +722,9 @@ section:hover {
     font-family: var(--quote-font);
     font-style: italic;
     text-align: right;
-    margin-top: 20px;
+    margin-top: 10px;
     color: var(--secondary-color);
+    font-size: 16px;
 }
 
 .capacity-grid {
@@ -744,7 +749,7 @@ section:hover {
 }
 
 .capacity-icon {
-    font-size: 2rem;
+    font-size: 40px;
     margin-bottom: 20px;
     text-align: center;
     flex-shrink: 0;
@@ -775,7 +780,7 @@ section:hover {
 
 .author {
     color: var(--secondary-color);
-    font-size: 1.2rem;
+    font-size: 18px;
     margin-top: 10px;
     text-align: center;
 }
@@ -839,8 +844,8 @@ section:hover {
 
 .marker-dot {
     display: block;
-    width: 20px;
-    height: 20px;
+    width: 12px;
+    height: 12px;
     background: var(--secondary-color);
     border-radius: 50%;
     animation: pulse 2s infinite, rotate 4s linear infinite;
@@ -854,7 +859,7 @@ section:hover {
     background: rgba(0, 0, 0, 0.8);
     padding: 5px 10px;
     border: 2px solid var(--secondary-color);
-    font-size: 0.8rem;
+    font-size: 16px;
 }
 
 @keyframes pulse {
@@ -888,7 +893,7 @@ section:hover {
 .data-visualization {
     display: flex;
     justify-content: space-around;
-    margin: 40px 0;
+    margin: 30px 0;
     gap: 20px;
 }
 
@@ -900,6 +905,7 @@ section:hover {
     border-radius: 10px;
     transition: transform 0.3s ease;
     animation: float 6s ease-in-out infinite;
+    font-size: 18px;
 }
 
 .data-point:hover {
@@ -907,7 +913,7 @@ section:hover {
 }
 
 .data-icon {
-    font-size: 2rem;
+    font-size: 32px;
     margin-bottom: 10px;
     transition: all 0.3s ease;
     display: inline-block;
@@ -935,12 +941,14 @@ section:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 30px 0;
 }
 
 .flow-step {
     text-align: center;
     flex: 1;
     transition: all 0.3s ease;
+    font-size: 18px;
 }
 
 .flow-step:hover {
@@ -949,7 +957,7 @@ section:hover {
 }
 
 .step-icon {
-    font-size: 2rem;
+    font-size: 32px;
     margin-bottom: 10px;
 }
 
@@ -1013,9 +1021,9 @@ section:hover {
 /* Impact grid styles */
 .impact-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 20px;
-    margin: 30px 0;
+    margin: 20px 0;
 }
 
 .impact-item {
@@ -1025,6 +1033,7 @@ section:hover {
     border: 2px solid var(--primary-color);
     border-radius: 10px;
     transition: transform 0.3s ease;
+    font-size: 18px;
 }
 
 .impact-item:hover {
@@ -1032,7 +1041,7 @@ section:hover {
 }
 
 .impact-icon {
-    font-size: 1.5rem;
+    font-size: 32px;
     margin-bottom: 10px;
     transition: all 0.3s ease;
     display: inline-block;
